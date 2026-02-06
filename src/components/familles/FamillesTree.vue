@@ -73,7 +73,7 @@ const onNodeSelect = (event) => {
         </template>
 
         <!-- Colonne unique avec Icônes Dynamiques -->
-        <Column field="name" header="Name" expander style="width: 100%">
+        <Column field="name" header="Nom" expander style="width: 100%">
             <template #body="slotProps">
                 <div class="flex items-center py-1">
                     <!-- Icône : Box pour ceux qui ont des enfants, Tag pour les feuilles -->

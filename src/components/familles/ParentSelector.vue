@@ -134,12 +134,7 @@ const onSetAsRoot = () => {
                 </div>
             </div>
             
-            <div class="mt-4 p-4 bg-blue-50 border border-blue-100 rounded-xl flex gap-3">
-                <i class="pi pi-info-circle text-blue-500 mt-0.5" />
-                <p class="text-xs text-blue-700 leading-relaxed">
-                    Déplacer une famille changera son emplacement dans l'arborescence. Les sous-catégories enfants suivront automatiquement leur parent.
-                </p>
-            </div>
+
         </div>
 
         <!-- Footer Fixe avec style Orange -->
@@ -158,8 +153,9 @@ const onSetAsRoot = () => {
                         :label="isMobileOrTablet ? '' : 'Annuler'" 
                         icon="pi pi-times"
                         text 
+                        severity="danger"
                         @click="$emit('cancel')" 
-                        class="px-5 py-2.5 font-bold rounded-xl text-gray-500 hover:bg-white hover:text-gray-700 transition-all border border-transparent shadow-xs"
+                        class="px-5 py-2.5 font-bold rounded-xl text-red-600! hover:bg-red-50! hover:text-red-700! transition-all border border-transparent shadow-xs"
                         v-tooltip.top="isMobileOrTablet ? 'Annuler' : ''"
                     />
                     <Button 

@@ -15,16 +15,18 @@ const selectedFamille = ref({}); // Affiché dans le panneau latéral desktop
 const modalFamille = ref({});    // Affiché dans le formulaire modal
 const isCreating = ref(false);
 const showModal = ref(false); 
-const showMoveModal = ref(false); // Modal pour le sélecteur de parent
-const showConfirmMoveModal = ref(false); // Modal de confirmation finale
+const showMoveModal = ref(false); // Modal pour le choix de la destination
+const showConfirmMoveModal = ref(false); // Confirmation finale du déplacement
 const showConfirmDeleteModal = ref(false);
 const showConfirmSaveModal = ref(false);
-const familyToMove = ref(null);   // La famille en cours de déplacement
-const nodeToDelete = ref(null);   // Le nœud en cours de suppression
-const targetParent = ref(null);   // La destination choisie
+const familyToMove = ref(null);   // Famille en cours de déplacement
+const nodeToDelete = ref(null);   // Nœud en cours de suppression
+const targetParent = ref(null);   // Parent cible choisi
 const isMobile = ref(false); 
 const isTablet = ref(false); 
 const isDesktop = ref(false); 
+const selectedKey = ref({});    // Pour la sélection dans l'arbre
+const expandedKeys = ref({});   // Pour les nœuds développés
 const orangeBrandColor = '#FF7900';
 
 const checkScreenSize = () => {
@@ -63,8 +65,18 @@ const openDialog = (famille, creating = false) => {
         modalFamille.value = { ...famille };
         // Valeurs par défaut pour la création
         if (!modalFamille.value.catID) modalFamille.value.catID = Math.floor(Math.random() * 255);
-        modalFamille.value.sort_order = 1;
+        modalFamille.value.sort_order = modalFamille.value.sort_order || 1;
+        modalFamille.value.vente = true;
         modalFamille.value.familles_vente = true;
+        modalFamille.value.stock = 0;
+        modalFamille.value.familles_produits_vente = 1;
+        modalFamille.value.familles_cc = '0';
+        modalFamille.value.familles_ca = '0';
+        modalFamille.value.familles_cancel_sale = '1';
+        modalFamille.value.familles_catalog = '1';
+        modalFamille.value.familles_sn = '0';
+        modalFamille.value.familles_services = '0';
+        modalFamille.value.consignment = '0';
         showModal.value = true;
     } else {
         selectedFamille.value = { ...famille };
@@ -239,10 +251,19 @@ const onCreateSub = () => {
         parent_name: activeFamille.name || activeFamille.familles_name,
         name: '',
         catID: Math.floor(Math.random() * 255),
-        vente: false,
+        vente: true,
+        familles_vente: true,
         stock: 0,
-        sort_order: 0,
-        familles_esim: false
+        familles_produits_vente: 1,
+        sort_order: 1,
+        familles_esim: false,
+        familles_cc: '0',
+        familles_ca: '0',
+        familles_cancel_sale: '1',
+        familles_catalog: '1',
+        familles_sn: '0',
+        familles_services: '0',
+        consignment: '0'
     };
     openDialog(newSubFamille, true);
 };
@@ -455,8 +476,9 @@ const onNodeSelect = (node) => {
                         :label="isMobile ? '' : 'Annuler'" 
                         icon="pi pi-times"
                         text 
+                        severity="danger"
                         @click="showConfirmMoveModal = false" 
-                        class="px-5 font-bold rounded-lg text-gray-500 hover:bg-gray-100 border border-transparent"
+                        class="px-5 font-bold rounded-lg text-red-600! hover:bg-red-50!"
                         v-tooltip.top="isMobile ? 'Annuler' : ''"
                     />
                     <Button 
@@ -501,8 +523,9 @@ const onNodeSelect = (node) => {
                         :label="isMobile ? '' : 'Annuler'" 
                         icon="pi pi-times"
                         text 
+                        severity="danger"
                         @click="showConfirmDeleteModal = false" 
-                        class="px-5 font-bold rounded-lg text-gray-500 hover:bg-gray-100 border border-transparent"
+                        class="px-5 font-bold rounded-lg text-red-600! hover:bg-red-50!"
                     />
                     <Button 
                         :label="isMobile ? '' : 'Supprimer définitivement'" 
@@ -544,8 +567,9 @@ const onNodeSelect = (node) => {
                         :label="isMobile ? '' : 'Annuler'" 
                         icon="pi pi-times"
                         text 
+                        severity="danger"
                         @click="showConfirmSaveModal = false" 
-                        class="px-5 font-bold rounded-lg text-gray-500 hover:bg-gray-100 border border-transparent"
+                        class="px-5 font-bold rounded-lg text-red-600! hover:bg-red-50!"
                     />
                     <Button 
                         :label="isMobile ? '' : 'Confirmer les changements'" 

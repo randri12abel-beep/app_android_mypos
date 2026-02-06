@@ -4,7 +4,6 @@ import InputText from 'primevue/inputtext';
 import InputNumber from 'primevue/inputnumber';
 import Checkbox from 'primevue/checkbox';
 import Button from 'primevue/button';
-
 import { ref, onMounted, onUnmounted } from 'vue';
 
 const modelValue = defineModel();
@@ -59,7 +58,7 @@ onUnmounted(() => {
                             <!-- Titre : retour automatique à la ligne si trop long -->
                             <div class="flex flex-col">
                                 <h2 class="text-xl md:text-2xl font-black text-[#1A1A1A] tracking-tight leading-tight wrap-break-word min-w-0 overflow-hidden">
-                                    {{ modelValue.name || 'Sans Nom' }}
+                                    {{ modelValue.name || 'Sans nom' }}
                                 </h2>
                                 <!-- Indicateur Hiérarchique -->
                                 <div class="flex items-center gap-1.5 mt-0.5">
@@ -280,9 +279,9 @@ onUnmounted(() => {
                         :label="isMobileOrTablet ? '' : 'Annuler'" 
                         icon="pi pi-times"
                         text 
-                        severity="secondary" 
+                        severity="danger" 
                         @click="$emit('cancel')"
-                        class="px-5 hover:bg-orange-100/50 rounded-lg"
+                        class="px-5 text-red-600! hover:bg-red-50! rounded-lg font-bold"
                         v-tooltip.top="isMobileOrTablet ? 'Annuler' : ''"
                     />
                     <Button 
