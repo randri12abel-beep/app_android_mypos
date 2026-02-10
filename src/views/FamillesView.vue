@@ -91,7 +91,7 @@ const openDialog = (famille, creating = false) => {
 
 const onCreate = (node) => {
     // Créer une sous-famille (enfant)
-    const parentId = node.data.key; // Le parent_id provient de la clé
+    const parentId = node.key; // Le parent_id provient de la clé
     openDialog({ parent_id: parentId, type: 'Sous-Famille' }, true);
 };
 
